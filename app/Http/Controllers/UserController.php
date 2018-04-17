@@ -63,6 +63,8 @@ class UserController extends Controller
     }
 
     //后台访问拒绝
+
+    /*
     public function permissionDenied()
     {
 
@@ -73,5 +75,6 @@ class UserController extends Controller
         // 否则使用视图
         return view('users.permission_denied');
     }
+    */
 
 }
