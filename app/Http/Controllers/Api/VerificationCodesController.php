@@ -16,9 +16,9 @@ class VerificationCodesController extends Controller
     public function store(VerificationCodeRequest $request, ChuanglanSmsApi $clapi)
     {
         $phone = $request->phone;
-        $code = str_pad(rand(1,9999), 4, 0, STR_PAD_LEFT);
-
+        $code  = '1234';
         if(config('services.is_send_true_smg')){
+            $code = str_pad(rand(1,9999), 4, 0, STR_PAD_LEFT);
             $res = $clapi->execResult( $clapi->sendSMS($phone, "【户动】验证码是: ". $code ."，请在5分钟内完成验证", 'true') );
 
             if(!isset($res[1]) || $res[1] != 0){
