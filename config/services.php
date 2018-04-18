@@ -35,4 +35,15 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'chuanglan' => [
+        'api_notice_account'=> env('API_NOTICE_ACCOUNT'),
+        'api_notice_password'=> env('API_NOTICE_PASSWORD'),
+        'api_marketing_account'=> env('API_MARKETING_ACCOUNT'),
+        'api_marketing_password'=> env('API_MARKETING_PASSWORD'),
+        'api_send_url'=> env('API_SEND_URL'),
+        'api_balance_query_url'=> env('API_BALANCE_QUERY_URL'),
+    ],
+
+    'is_send_true_smg' => env('IS_SEND_TRUE_SMGS') ? : false,
+
 ];
