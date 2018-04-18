@@ -263,3 +263,47 @@
     3: 生成配置信息：配置信息存放于 config/permission.php 
     
     > php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag="config"
+    
+    
+    
+    
+    
+##### 微信授权
+
+
+  1:获取授权码
+	
+    https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx543xxxxxxxx3c82&redirect_uri=http://bbs.test&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+    
+            
+           获取结果: http://...../?code=071Zce2e1zCCor0YnE2e1B3W1e1Zce2v&state=STATE
+
+  2:获取access_token openid
+	
+		https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx543xxxxxxxx3c82&secret=d1216ac7axxxxxxxxxxc2c98d2831a37&code=001xcQ1s0cRptd1YumYr0epS1s0xcQ1f&grant_type=authorization_code
+            
+         获取结果:{
+                     "access_token":"8_MJCsgvCf9bJf_lxzC-GW5dZD59zEnhZZy9tNcebHDNv8KC5pQUsqCx6VJ4_qGKsbpnEWL-IkC2g",
+                     "expires_in":7200,
+                     "refresh_token":"8_-V79fxCrY3zYn8HtyiVim_UKh7GOYjVJq6OGraFyiEwPYGnKyvGu_V54Yq2D4SOA5vhNwUb_cnLKjkmLgtw4LA",
+                     "openid":"oeWizwSdYbfNiXkhUtww",
+                     "scope":"snsapi_userinfo"
+                 }
+
+  3：获取个人信息
+
+		https://api.weixin.qq.com/sns/userinfo?access_token=8_MJCsgvCf9bJf_6qYYgsvZESalxzC-GW5dZD59zEnhZZy9tNcebHDNv8KC5pQUsqCx6VJ4_qGKsbpnEWL-IkC2g&openid=oeWizwSdYbf1sbQsY0ONiXkhUtww&lang=zh_CN
+
+            
+            
+        获取结果:{
+                        "openid":"oeWizwS0ONiXkhUtww",
+                        "nickname":"",
+                        "sex":1,
+                        "language":"en",
+                        "city":"",
+                        "province":"",
+                        "country":"中国",
+                        "headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/n3E9esUk5rran4d7dVibcibTL9wb41LEich5ddhB4W8nCUvlYBRuicXBAjw8qfbdeKzCEvoa2BXru0A/",
+                        "privilege":[]
+                 }

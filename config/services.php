@@ -44,6 +44,13 @@ return [
         'api_balance_query_url'=> env('API_BALANCE_QUERY_URL'),
     ],
 
+    'wechat' => [
+        'appId' => env('WECHAT_APP_ID'),
+        'appsecret' => env('WECHAT_APP_SECRET'),
+        'redirect_url' => env('REDIRECT_URI '),
+        'scope' => env('WECHAT_APP_SCOPE '),
+    ],
+
     'is_send_true_smg' => env('IS_SEND_TRUE_SMGS', false),
 
 ];
