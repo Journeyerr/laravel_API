@@ -15,8 +15,21 @@ class VerificationCodesController extends Controller
      */
     public function store(VerificationCodeRequest $request, ChuanglanSmsApi $clapi)
     {
-        $phone = $request->phone;
+        $captchaDate = Cache::get($request->captcha_key);
+
+        if(!$captchaDate){
+            return $this->response->error('图片验证码失效');
+
+        }
+
+        if(!hash_equals($captchaDate['code'],$request->captcha_code)){
+            Cache::forget($request->captcha_key);
+            return $this->response->errorUnauthorized('验证码错误');
+        }
+
+        $phone = $captchaDate['phone'];
         $code  = '1234';
+
         if(config('services.is_send_true_smg')){
             $code = str_pad(rand(1,9999), 4, 0, STR_PAD_LEFT);
             $res = $clapi->execResult( $clapi->sendSMS($phone, "【户动】验证码是: ". $code ."，请在5分钟内完成验证", 'true') );
@@ -29,7 +42,10 @@ class VerificationCodesController extends Controller
         $key = 'verificationCode_'. str_random(15);
         $expiredAt = now()->addMinute(10);
 
+        // 短信验证码写入 redis
         Cache::put($key, ['phone' => $phone, 'code' => $code], $expiredAt);
+        // 清除图片验证码
+        Cache::forget($request->captcha_key);
 
         return $this->response->array([
             'key' => $key,
