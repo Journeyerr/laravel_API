@@ -44,6 +44,6 @@ return [
         'api_balance_query_url'=> env('API_BALANCE_QUERY_URL'),
     ],
 
-    'is_send_true_smg' => env('IS_SEND_TRUE_SMGS') ? : false,
+    'is_send_true_smg' => env('IS_SEND_TRUE_SMGS', false),
 
 ];

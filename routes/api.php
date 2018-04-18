@@ -19,10 +19,24 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['namespace' => 'App\Http\Controllers\Api'],function ($api){
-    // 短信验证码
-    $api->post('verificationCodes', 'VerificationCodesController@store')
-        ->name('api.verificationCodes.store');
+$api->version('v1', ['namespace' => 'App\Http\Controllers\Api'],
 
-    $api->post('users', 'UsersController@store')->name('api.users.store');
+    function ($api){
+
+        // DingoApi提供了调用频率限制的中间件 api.throttle
+        $api->group([
+            'middleware' => 'api.throttle',
+            'limit' => config('api.rate_limits.sign.limit'),
+            'expires' => config('api.rate_limits.sign.expires'),
+        ],
+
+        function ($api){
+            // 短信验证码
+            $api->post('verificationCodes', 'VerificationCodesController@store')
+                ->name('api.verificationCodes.store');
+
+            $api->post('users', 'UsersController@store')->name('api.users.store');
+    });
+
+
 });
