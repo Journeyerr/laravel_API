@@ -38,5 +38,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api'],
             $api->post('users', 'UsersController@store')->name('api.users.store');
             // 验证码
             $api->post('captchas', 'CaptchasController@store')->name('api.captchas.store');
+            // 第三方登录
+            $api->post('socials/{social_type}/authorizations', 'AuthorizationsController@socialStore')
+                ->name('api.socials.authorizations.store');
     });
 });
