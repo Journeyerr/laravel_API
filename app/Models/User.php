@@ -74,4 +74,22 @@ class User extends Authenticatable
 
         $this->attributes['password'] = $value;
     }
+
+
+
+    /*
+     *user 模型需要继承
+     * Tymon\JWTAuth\Contracts\JWTSubject 接口
+     * 并实现接口的两个方法 getJWTIdentifier() 和 getJWTCustomClaims()。
+     */
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

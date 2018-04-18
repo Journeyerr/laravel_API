@@ -307,3 +307,30 @@
                         "headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/n3E9esUk5rran4d7dVibcibTL9wb41LEich5ddhB4W8nCUvlYBRuicXBAjw8qfbdeKzCEvoa2BXru0A/",
                         "privilege":[]
                  }
+                 
+                 
+                 
+                 
+                 
+###安装 jwt-auth
+
+安装：
+> composer require tymon/jwt-auth:1.0.0-rc.1
+
+生成秘钥：
+> php artisan jwt:secret 
+
+    可以看到在 .env 文件中，增加了一行 JWT_SECRET
+
+修改驱动：
+> 修改 config/auth.php，将 api guard 的 driver 改为 jwt
+
+增加配置：
+> 修改 config/api.php，auth 中增加 JWT 相关的配置
+
+    'auth' => [
+        'jwt' => 'Dingo\Api\Auth\Provider\JWT',
+    ],
+  
+模型继承：
+>user 模型需要继承 Tymon\JWTAuth\Contracts\JWTSubject 接口，并实现接口的两个方法 getJWTIdentifier() 和 getJWTCustomClaims()。

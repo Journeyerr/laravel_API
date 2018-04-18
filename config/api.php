@@ -246,4 +246,9 @@ return [
         ],
     ],
 
+    //增加 JWT 相关的配置
+    'auth' => [
+        'jwt' => 'Dingo\Api\Auth\Provider\JWT',
+    ],
+
 ];
