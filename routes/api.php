@@ -19,7 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['namespace' => 'App\Http\Controllers\Api'],
+$api->version('v1', [
+    'namespace' => 'App\Http\Controllers\Api',
+    'middleware' => 'serializer:array'
+
+    ],
 
     function ($api){
 

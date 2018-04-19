@@ -18,7 +18,7 @@ class VerificationCodesController extends Controller
         $captchaDate = Cache::get($request->captcha_key);
 
         if(!$captchaDate){
-            return $this->response->error('图片验证码失效');
+            return $this->response->error('图片验证码已失效', 422);
 
         }
 
