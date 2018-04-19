@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Transformers\UserTransformer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class UsersController extends Controller
 {
+    // 注册
     public function store(UserRequest $request)
     {
         $verifyData = Cache::get($request->verification_key);
@@ -36,5 +38,15 @@ class UsersController extends Controller
             return $this->response->errorUnauthorized('异常');
         }
 
+    }
+
+    // 个人信息
+    public function me()
+    {
+        /*
+         * $this->user() 等同于\Auth::gurad('api')->user() 也等于 Auth::user()
+         */
+
+        return $this->response->item($this->user(), new UserTransformer());
     }
 }
