@@ -5,12 +5,31 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
     use HasRoles;
     use Traits\LastActivedAtHelper;
+
+    /*
+     *user 模型需要继承
+     * Tymon\JWTAuth\Contracts\JWTSubject 接口
+     * 并实现接口的两个方法 getJWTIdentifier() 和 getJWTCustomClaims()。
+     */
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -77,19 +96,5 @@ class User extends Authenticatable
 
 
 
-    /*
-     *user 模型需要继承
-     * Tymon\JWTAuth\Contracts\JWTSubject 接口
-     * 并实现接口的两个方法 getJWTIdentifier() 和 getJWTCustomClaims()。
-     */
 
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
 }
