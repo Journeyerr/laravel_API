@@ -87,8 +87,14 @@ $api->version('v1', [
         });
 
         // 游客可以访问的接口
+
+        // 分类里列表
         $api->get('categories', 'CategoriesController@index')
             ->name('api.categories.index');
+
+        // 话题列表
+        $api->get('topics', 'TopicsController@index')
+            ->name('api.topics.index');
     }
 
 

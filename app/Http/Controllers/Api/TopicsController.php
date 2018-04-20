@@ -3,12 +3,37 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\TopicRequest;
+use App\Http\Requests\Request;
 use App\Models\Topic;
 use App\Models\User;
 use App\Transformers\TopicTransformer;
 
 class TopicsController extends Controller
 {
+    // 话题列表
+    public function index(Request $request, Topic $topic)
+    {
+        $query = $topic->query();
+
+        // 如果指定了分类id
+        if($categroy_id = $request->categroy_id){
+            $query->where('categroy_id', $categroy_id);
+        }
+
+        switch ($request->order) {
+            case 'desc':
+                $query->orderBy('id', 'desc');
+                break;
+            default:
+                $query->orderBy('id', 'asc');
+                break;
+        }
+
+        $topics = $query->paginate(20);
+        return $this->response->paginator($topics, new TopicTransformer());
+
+    }
+
     // 创建话题
     public function store(TopicRequest $request, Topic $topic)
     {
