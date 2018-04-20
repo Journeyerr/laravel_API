@@ -95,6 +95,10 @@ $api->version('v1', [
         // 话题列表
         $api->get('topics', 'TopicsController@index')
             ->name('api.topics.index');
+
+        // 某个用户的话题里诶包
+        $api->get('users/{user}/topics', 'TopicsController@userIndex')
+            ->name('api.users.topics.index');
     }
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\TopicRequest;
 use App\Http\Requests\Request;
 use App\Models\Topic;
+use App\Models\User;
 use App\Transformers\TopicTransformer;
 
 class TopicsController extends Controller
@@ -30,8 +31,15 @@ class TopicsController extends Controller
         // 获取分页后的数据
         $topics = $query->paginate(5);
         return $this->response->paginator($topics, new TopicTransformer());
-
     }
+
+    // 某用户话题列表
+    public function userIndex($id)
+    {
+        $topics =  User::find($id)->topics()->orderBy('id', 'desc')->paginate(2);
+        return $this->response->paginator($topics, new TopicTransformer());
+    }
+
 
     // 创建话题
     public function store(TopicRequest $request, Topic $topic)
