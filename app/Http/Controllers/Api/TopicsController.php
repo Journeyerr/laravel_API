@@ -30,4 +30,16 @@ class TopicsController extends Controller
         $topic->update($request->all());
         return $this->response->item($topic, new TopicTransformer());
     }
+
+    // 删除话题
+    public function destroy($id)
+    {
+        $topic = Topic::find($id);
+
+        // 安全策略类 检测： 修改的话题是否是当前登录用户的
+        $this->authorize('update', $topic);
+
+        $topic->delete();
+        return $this->response->noContent();
+    }
 }
