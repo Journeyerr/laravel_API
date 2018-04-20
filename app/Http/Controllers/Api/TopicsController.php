@@ -40,6 +40,12 @@ class TopicsController extends Controller
         return $this->response->paginator($topics, new TopicTransformer());
     }
 
+    public function show($id)
+    {
+        $topic = Topic::find($id);
+        return $this->response->item($topic, new TopicTransformer());
+    }
+
 
     // 创建话题
     public function store(TopicRequest $request, Topic $topic)
