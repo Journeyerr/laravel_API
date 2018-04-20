@@ -22,7 +22,6 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
     'middleware' => 'serializer:array'
-
     ],
 
     function ($api){
@@ -77,5 +76,11 @@ $api->version('v1', [
 
             });
         });
+
+        // 游客可以访问的接口
+        $api->get('categories', 'CategoriesController@index')
+            ->name('api.categories.index');
     }
+
+
 );
