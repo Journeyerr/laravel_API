@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\TopicRequest;
 use App\Http\Requests\Request;
 use App\Models\Topic;
-use App\Models\User;
 use App\Transformers\TopicTransformer;
 
 class TopicsController extends Controller
@@ -29,7 +28,7 @@ class TopicsController extends Controller
                 break;
         }
         // 获取分页后的数据
-        $topics = $query->paginate(20);
+        $topics = $query->paginate(5);
         return $this->response->paginator($topics, new TopicTransformer());
 
     }
