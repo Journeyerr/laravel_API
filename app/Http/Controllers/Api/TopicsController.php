@@ -17,7 +17,7 @@ class TopicsController extends Controller
 
         // 如果指定了分类id
         if($categroy_id = $request->categroy_id){
-            $query->where('categroy_id', $categroy_id);
+            $query->where('category_id', $categroy_id);
         }
 
         switch ($request->order) {
@@ -28,7 +28,7 @@ class TopicsController extends Controller
                 $query->orderBy('id', 'asc');
                 break;
         }
-
+        // 获取分页后的数据
         $topics = $query->paginate(20);
         return $this->response->paginator($topics, new TopicTransformer());
 
