@@ -12,7 +12,7 @@ class ReplyRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|min:2',
+            'contents' => 'required|min:2',
         ];
     }
 }

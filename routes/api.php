@@ -91,6 +91,9 @@ $api->version('v1', [
                 // 话题回复
                 $api->post('topics/{topic}/replies', 'ReplicsController@store')
                     ->name('api.topics.replies.store');
+                // 回复删除
+                $api->delete('topics/{topic}/replies/{reply}', 'ReplicsController@destroy')
+                    ->name('api.topics.replies.destroy');
 
             });
         });
