@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\ReplyRequest;
 use App\Models\Reply;
 use App\Models\Topic;
+use App\Models\User;
 use App\Transformers\ReplyTransformer;
 
 class RepliesController extends Controller
@@ -15,6 +16,13 @@ class RepliesController extends Controller
         $topics = $topic->replies()->paginate(3);
         return $this->response->paginator($topics, new ReplyTransformer());
 
+    }
+
+    // 用户回复列表
+    public function userIndex(User $user)
+    {
+        $topics = $user->replies()->paginate(3);
+        return $this->response->paginator($topics, new ReplyTransformer());
     }
 
     // 创建回复

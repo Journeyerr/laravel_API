@@ -118,6 +118,10 @@ $api->version('v1', [
         // 话题回复列表
         $api->get('topics/{topic}/replies', 'RepliesController@index')
             ->name('api.topics.replies.index');
+
+        // 用户回复列表
+        $api->get('users/{user}/replies', 'RepliesController@userIndex')
+            ->name('api.topics.replies.userIndex');
     }
 
 
