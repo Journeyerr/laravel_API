@@ -7,8 +7,16 @@ use App\Models\Reply;
 use App\Models\Topic;
 use App\Transformers\ReplyTransformer;
 
-class ReplicsController extends Controller
+class RepliesController extends Controller
 {
+    // 回复列表
+    public function index(Topic $topic)
+    {
+        $topics = $topic->replies()->paginate(3);
+        return $this->response->paginator($topics, new ReplyTransformer());
+
+    }
+
     // 创建回复
     public function store(ReplyRequest $request, Topic $topic, Reply $reply)
     {

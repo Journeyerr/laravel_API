@@ -89,10 +89,10 @@ $api->version('v1', [
 
 
                 // 话题回复
-                $api->post('topics/{topic}/replies', 'ReplicsController@store')
+                $api->post('topics/{topic}/replies', 'RepliesController@store')
                     ->name('api.topics.replies.store');
                 // 回复删除
-                $api->delete('topics/{topic}/replies/{reply}', 'ReplicsController@destroy')
+                $api->delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')
                     ->name('api.topics.replies.destroy');
 
             });
@@ -114,6 +114,10 @@ $api->version('v1', [
         // 话题详情
         $api->get('topics/{topic}', 'TopicsController@show')
             ->name('api.topics.show');
+
+        // 话题回复列表
+        $api->get('topics/{topic}/replies', 'RepliesController@index')
+            ->name('api.topics.replies.index');
     }
 
 
