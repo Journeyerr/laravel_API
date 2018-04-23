@@ -26,7 +26,7 @@ $api->version('v1', [
 
     function ($api){
 
-        // DingoApi提供了调用频率限制的中间件 api.throttle
+        // 分组路由    DingoApi提供了调用频率限制的中间件 api.throttle
         $api->group([
             'middleware' => 'api.throttle',
             'limit' => config('api.rate_limits.sign.limit'),
@@ -55,14 +55,17 @@ $api->version('v1', [
                 ->name('api.authorizations.destroy');
         });
 
+
+        // 分组路由
         $api->group([
-            'middleware' => 'api.throttle',
-            'limit' => config('api.rate_limits.access.limit'),
-            'expires' => config('api.rate_limits.access.expires'),
+            'middleware' => 'api.throttle',                         // DingoApi提供了调用频率限制的中间件 api.throttle
+            'limit' => config('api.rate_limits.access.limit'),      // 限制次数
+            'expires' => config('api.rate_limits.access.expires'),  // 限制时间
         ],
 
         function ($api){
             // 需要 token 验证的接口
+
             $api->group(['middleware' => 'api.auth'], function($api) {
                 // 当前登录用户信息
                 $api->get('user', 'UsersController@me')
@@ -83,6 +86,12 @@ $api->version('v1', [
                 // 删除话题
                 $api->delete('topics/{topic}', 'TopicsController@destroy')
                     ->name('api.topics.delete');
+
+
+                // 话题回复
+                $api->post('topics/{topic}/replies', 'ReplicsController@store')
+                    ->name('api.topics.replies.store');
+
             });
         });
 
@@ -106,12 +115,3 @@ $api->version('v1', [
 
 
 );
-
-$api->version('v1', [
-    'namespace' => 'App\Http\Controllers\Api',
-], function ($api) {
-    // 话题详情
-    $api->get('topics/{topics}', 'TopicsController@show')
-        ->name('api.topics.show');
-
-});
