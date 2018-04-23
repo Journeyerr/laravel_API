@@ -34,15 +34,14 @@ class TopicsController extends Controller
     }
 
     // 某用户话题列表
-    public function userIndex($id)
+    public function userIndex(User $user)
     {
-        $topics =  User::find($id)->topics()->orderBy('id', 'desc')->paginate(2);
+        $topics =  $user->topics()->orderBy('id', 'desc')->paginate(2);
         return $this->response->paginator($topics, new TopicTransformer());
     }
 
-    public function show($id)
+    public function show(Topic $topic)
     {
-        $topic = Topic::find($id);
         return $this->response->item($topic, new TopicTransformer());
     }
 
@@ -58,9 +57,8 @@ class TopicsController extends Controller
     }
 
     // 更新话题
-    public function update(TopicRequest $request, $id)
+    public function update(TopicRequest $request, Topic $topic)
     {
-        $topic = Topic::find($id);
 
         // 安全策略类 检测： 修改的话题是否是当前登录用户的
         $this->authorize('update', $topic);
@@ -70,10 +68,8 @@ class TopicsController extends Controller
     }
 
     // 删除话题
-    public function destroy($id)
+    public function destroy(Topic $topic)
     {
-        $topic = Topic::find($id);
-
         // 安全策略类 检测： 修改的话题是否是当前登录用户的
         $this->authorize('update', $topic);
 
