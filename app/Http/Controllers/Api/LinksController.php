@@ -10,6 +10,6 @@ class LinksController extends Controller
     public function index(Link $link)
     {
         $links = $link->getAllCached();
-        return $this->response->collection($links, new LinkTransformer());
+        return $this->response->item($links, new LinkTransformer());
     }
 }
