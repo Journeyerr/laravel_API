@@ -61,6 +61,12 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Reply::class);
     }
 
+    // 获取 用户 所有通知
+//    public function notifications()
+//    {
+//        return $this->hasMany(Notification::class, 'notifiable_id');
+//    }
+
     //将消息通知清零
     public function clearNotification()
     {

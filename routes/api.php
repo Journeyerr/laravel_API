@@ -95,6 +95,13 @@ $api->version('v1', [
                 $api->delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')
                     ->name('api.topics.replies.destroy');
 
+
+                // 消息通知列表
+//                $api->get('user/notifications', 'NotificationsController@index')
+//                    ->name('api.user.notifications.index');
+                // 消息通知列表
+                $api->get('user/{user}/notifications', 'NotificationsController@index')
+                    ->name('api.user.notifications.index');
             });
         });
 
@@ -107,7 +114,6 @@ $api->version('v1', [
         // 话题列表
         $api->get('topics', 'TopicsController@index')
             ->name('api.topics.index');
-
         // 某个用户的话题列表
         $api->get('users/{user}/topics', 'TopicsController@userIndex')
             ->name('api.users.topics.index');
@@ -118,10 +124,11 @@ $api->version('v1', [
         // 话题回复列表
         $api->get('topics/{topic}/replies', 'RepliesController@index')
             ->name('api.topics.replies.index');
-
         // 用户回复列表
         $api->get('users/{user}/replies', 'RepliesController@userIndex')
             ->name('api.topics.replies.userIndex');
+
+
     }
 
 
