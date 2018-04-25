@@ -7,6 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class ImageTransformer extends TransformerAbstract
 {
+    // 图片上传Transformer
     public function transform(Image $image)
     {
         return [

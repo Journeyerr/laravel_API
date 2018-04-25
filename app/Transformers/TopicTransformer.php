@@ -7,6 +7,8 @@ use League\Fractal\TransformerAbstract;
 
 class TopicTransformer extends TransformerAbstract
 {
+    // 话题的Transformer
+
     //$availableIncludes 指明话题可以额外引入相关的 user 和 category 资源
     protected $availableIncludes = ['user', 'category'];
 

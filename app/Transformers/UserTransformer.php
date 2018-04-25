@@ -7,6 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
+    // 用户的Transformer
     public function transform(User $user)
     {
         return [

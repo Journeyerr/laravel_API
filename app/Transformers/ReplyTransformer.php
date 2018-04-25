@@ -7,6 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class ReplyTransformer extends TransformerAbstract
 {
+    // 回复的Transformer
 
     protected $availableIncludes = ['user', 'topic'];
 
