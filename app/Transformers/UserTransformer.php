@@ -8,6 +8,10 @@ use League\Fractal\TransformerAbstract;
 class UserTransformer extends TransformerAbstract
 {
     // 用户的Transformer
+
+    // 指明user用户信息返回的时候，自动带上用户角色信息
+    protected $availableIncludes = ['roles'];
+
     public function transform(User $user)
     {
         return [
@@ -23,4 +27,13 @@ class UserTransformer extends TransformerAbstract
             'updated_at' => $user->updated_at->toDateTimeString(),
         ];
     }
+
+    //用户与角色的关系是一对多的，通过 $this->collection 返回用户权限
+    //如果是一对一的关系，选择  $this->item 返回
+
+    public function includeRoles(User $user)
+    {
+        return $this->collection($user->roles, new RoleTransformer());
+    }
+
 }
