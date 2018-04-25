@@ -137,5 +137,11 @@ $api->version('v1', [
         // 用户回复列表
         $api->get('users/{user}/replies', 'RepliesController@userIndex')
             ->name('api.topics.replies.userIndex');
+
+        /* 推荐资源 */
+
+        // 资源推荐
+        $api->get('links', 'LinksController@index')
+            ->name('api.links.index');
     }
 );
